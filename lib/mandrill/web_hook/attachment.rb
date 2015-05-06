@@ -26,7 +26,9 @@ class Mandrill::WebHook::Attachment < Hash
 
   # Returns a boolean for whether the attachment content is base64 encoded
   def base64
-    self['base64']
+    # FIXME: Quickfix to deal with Mandrill dropping the base64 attribute
+    # For now, we'll interpret a missing attribute as true
+    self['base64'].nil? || self['base64']
   end
 
   # Returns the decoded content for the attachment
